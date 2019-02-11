@@ -45,7 +45,7 @@ class FormInput extends Component {
 FormInput.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     placeholder: PropTypes.string,
     required: PropTypes.bool.isRequired,
     textarea: PropTypes.bool.isRequired,
@@ -72,7 +72,8 @@ const TextAreaInput = (props) => {
 const BasicInput = (props) => {
     return (
         <input
-            {...props}
+            {..._.omit(props, 'value')}
+            value={typeof Number(props.value) == 'number' ? props.value.toLocaleString('en-GB') : props.value}
         />
     )
 }

@@ -23,6 +23,13 @@
   color: #61dafb;
 }
 
+.button{
+  cursor: pointer;
+  display: block;
+  width: 5vw;
+  height: 2vh;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
