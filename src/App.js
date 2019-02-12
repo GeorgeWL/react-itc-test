@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.sass';
 import VacancyForm from './components/VacancyForm';
 import TEST_DATA from './data/Test';
 import _ from 'lodash';
+import VacancyList from './components/VacancyList';
 
 class App extends Component {
   // init state
   state = {
     items: TEST_DATA,
-  }
+  } 
+  // I imagine in a real app would handle this with an
+  // external data store such as mysql or graphQL, 
+  // probably with redux or similar to control the data
+  // but cause this is a quick app I'm just using local state
 
   onSubmit = (data) => {
     let { items } = this.state;
@@ -21,15 +26,18 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-
+          <h1>
+            Vacancies
+          </h1>
+          To get a feel for what it's like to work at ITC
         </header>
         <main>
           <VacancyForm
             onSubmit={this.onSubmit}
           />
-          <div>
-            {JSON.stringify(items)}
-          </div>
+          <VacancyList 
+            items={items}
+          />
         </main>
       </div>
     );

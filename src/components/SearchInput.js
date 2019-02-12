@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames'
-import './css/VacancyItem.module.sass';
+// import './css/SearchInput.module.sass';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-class VacancyItem extends Component {
+class SearchInput extends Component {
 
+    onChange = (evt) =>{
+        let value = evt.target.value
+        this.props.onChange(value)
+    }
     render(props) {
-        var {
-            title,
-            description,
-            location,
-            salary,
+        let { 
+            value, 
             className
-        } = this.props;
+         } = this.props;
         return (
-            <div className={ClassNames('container', className)}>
-
-            </div>
+            <input 
+            className={ClassNames('container', className)}
+            value={value}
+            onChange={this.onChange}
+            />
         )
     }
 }
-VacancyItem.propTypes = {
+SearchInput.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
@@ -29,8 +32,7 @@ VacancyItem.propTypes = {
     className: PropTypes.string
 }
 
-VacancyItem.defaultProps = {
+SearchInput.defaultProps = {
     /*onClick : () => console.warn('onClick has not been implemented')*/
 }
-
-export default VacancyItem
+export default SearchInput
