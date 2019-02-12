@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames'
-import _ from 'lodash';
+// import _ from 'lodash';
 // import './css/form.sass';
 import PropTypes from 'prop-types'
 class FormInput extends Component {
-
     render(props) {
         var {
             id,
@@ -14,27 +13,32 @@ class FormInput extends Component {
             required,
             textarea,
             onChange,
+            error,
             className
         } = this.props;
-        let inputProps = {
-            id,
-            value,
-            placeholder,
-            required,
-            onChange
-        }
+
+
         return (
             <div className={ClassNames('container', className)}>
                 <LabelWrapper
                     label={label}
+                    error={error}
                     required={required}
                 >
                     {textarea === true ?
                         <TextAreaInput
-                            {...inputProps}
+                            name={id}
+                            value={value}
+                            placeholder={placeholder}
+                            required={required}
+                            onChange={onChange}
                         /> :
                         <BasicInput
-                            {...inputProps}
+                            name={id}
+                            value={value}
+                            placeholder={placeholder}
+                            required={required}
+                            onChange={onChange}
                         />
                     }
                 </LabelWrapper>
@@ -62,28 +66,43 @@ FormInput.defaultProps = {
 
 
 const TextAreaInput = (props) => {
+    const { name, value, placeholder, required, onChange } = props;
     return (
         <textarea
-            {...props}
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            required={required}
+            onChange={onChange}
         />
     )
 }
 
 const BasicInput = (props) => {
+    const { name, value, placeholder, required, onChange } = props;
     return (
         <input
-            {..._.omit(props, 'value')}
-            value={typeof Number(props.value) == 'number' ? props.value.toLocaleString('en-GB') : props.value}
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            required={required}
+            onChange={onChange}
         />
     )
 }
 
 const LabelWrapper = (props) => {
-    const { children, label, required } = props;
+    const { 
+        children, 
+        label,
+        error, 
+        required
+     } = props;
     return (
         <div>
             <strong>{label}{required && '*'}</strong>
             {children}
+            <small style={{color:'red'}}>{error ? error :null}</small>
         </div>
     )
 }

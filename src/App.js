@@ -10,17 +10,14 @@ class App extends Component {
     items: TEST_DATA,
   }
 
-  onSubmit = (data) =>{
-    let {items} = this.state;
-    let newItems = _.clone(items)
-    newItems.append(data)
-    this.setState({
-      items:newItems
-    })
-    console.log('submit',data)
+  onSubmit = (data) => {
+    let { items } = this.state;
+    items.push(data)
+    this.setState({ items })
+    console.log('submit', data)
   }
   render() {
-    const {items} = this.state;
+    const { items } = this.state;
     return (
       <div className="App">
         <header className="App-header">

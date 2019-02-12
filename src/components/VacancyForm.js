@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames'
-import _ from 'lodash';
+// import _ from 'lodash';
 // import './css/form.sass';
 import PropTypes from 'prop-types';
 import FormInput from './FormInput';
 import { Formik } from 'formik';
-import Button from './Button';
 
 const INITIAL_VALUES = {
     title: undefined,
@@ -34,7 +33,7 @@ class VacancyForm extends Component {
                         if (!values.salary) {
                             errors.salary = 'Salary Required'
                         } else if (
-                            typeof values.salary != 'number'
+                            typeof Number(values.salary) != 'number'
                         ) {
                             errors.salary = 'Salary Expects a Number'
                         }
@@ -45,11 +44,10 @@ class VacancyForm extends Component {
                         return errors;
                     }
                 }
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        this.props.onSubmit(values);
-                        setSubmitting(false);
-                    }, 400);
+
+                onSubmit={(values) => {
+                    console.log('onSubmit',values)
+                    onSubmit(values);
                 }}
             >
                 {
@@ -58,20 +56,19 @@ class VacancyForm extends Component {
                             values,
                             errors,
                             handleChange,
-                            handleSubmit,
-                            isSubmitting
-                        }
+                            handleSubmit }
                     ) => (
                             <form
-                             onSubmit={handleSubmit}
-                             className={ClassNames('form-container', className)}
-                             >
+                                onSubmit={handleSubmit}
+                                className={ClassNames('form-container', className)}
+                            >
                                 <FormInput
                                     id={'title'}
                                     label={'Job Title'}
                                     placeholder={'John'}
                                     value={values.title}
                                     onChange={handleChange}
+                                    error={errors.title}
                                     required
                                 />
                                 <FormInput
@@ -80,6 +77,7 @@ class VacancyForm extends Component {
                                     placeholder={'Manchester, United Kingdom'}
                                     value={values.location}
                                     onChange={handleChange}
+                                    error={errors.location}
                                     required
                                 />
                                 <FormInput
@@ -88,6 +86,7 @@ class VacancyForm extends Component {
                                     placeholder={'Development'}
                                     value={values.department}
                                     onChange={handleChange}
+                                    error={errors.department}
                                 />
                                 <FormInput
                                     id={'salary'}
@@ -95,6 +94,7 @@ class VacancyForm extends Component {
                                     placeholder={'25,000'}
                                     value={values.salary}
                                     onChange={handleChange}
+                                    error={errors.salary}
                                     required
                                 />
                                 <FormInput
@@ -103,12 +103,13 @@ class VacancyForm extends Component {
                                     placeholder={'Explain the role and criteria here'}
                                     value={values.description}
                                     onChange={handleChange}
+                                    error={errors.description}
                                     required
                                     textarea
                                 />
                                 <button
-                                    disabled={isSubmitting}
-                                    type='submit'
+                                    type="submit"
+                                    disabled={errors.length > 0 ? true : false}
                                 >
                                     Submit
                                 </button>
