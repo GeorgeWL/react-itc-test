@@ -2,33 +2,31 @@ import React, { Component } from 'react';
 import ClassNames from 'classnames'
 // import './css/SearchInput.module.sass';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 class SearchInput extends Component {
 
-    onChange = (evt) =>{
+    onChange = (evt) => {
         let value = evt.target.value
         this.props.onChange(value)
     }
     render(props) {
-        let { 
-            value, 
+        let {
+            value,
             className
-         } = this.props;
+        } = this.props;
         return (
-            <input 
-            className={ClassNames('container', className)}
-            value={value}
-            onChange={this.onChange}
+            <input
+                className={ClassNames('container', className)}
+                value={value}
+                onChange={this.onChange}
             />
         )
     }
 }
 SearchInput.propTypes = {
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    salary: PropTypes.number.isRequired, //will convert to localized string
+    value: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
     className: PropTypes.string
 }
 
