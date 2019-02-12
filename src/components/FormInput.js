@@ -12,6 +12,7 @@ class FormInput extends Component {
             placeholder,
             required,
             textarea,
+            type,
             onChange,
             error,
             className
@@ -36,6 +37,7 @@ class FormInput extends Component {
                         <BasicInput
                             name={id}
                             value={value}
+                            type={type}
                             placeholder={placeholder}
                             required={required}
                             onChange={onChange}
@@ -79,7 +81,13 @@ const TextAreaInput = (props) => {
 }
 
 const BasicInput = (props) => {
-    const { name, value, placeholder, required, onChange } = props;
+    const {
+        name,
+        value,
+        placeholder,
+        type,
+        required,
+        onChange } = props;
     return (
         <input
             name={name}
@@ -87,22 +95,24 @@ const BasicInput = (props) => {
             placeholder={placeholder}
             required={required}
             onChange={onChange}
+            min={14000}
+            type={type != null ? type : 'string'}
         />
     )
 }
 
 const LabelWrapper = (props) => {
-    const { 
-        children, 
+    const {
+        children,
         label,
-        error, 
+        error,
         required
-     } = props;
+    } = props;
     return (
         <div>
             <strong>{label}{required && '*'}</strong>
             {children}
-            <small style={{color:'red'}}>{error ? error :null}</small>
+            <small style={{ color: 'red' }}>{error ? error : null}</small>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import ClassNames from 'classnames'
 // import './css/VacancyItem.module.sass';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 
 class VacancyItem extends Component {
 
@@ -13,7 +14,27 @@ class VacancyItem extends Component {
         } = this.props;
         return (
             <div className={ClassNames('container', className)}>
-
+                <h1>
+                    {data.title}
+                </h1>
+                <small>
+                    {moment(data.lastUpdated).format('MMM Do YY')}
+                </small>
+                <div className={'main'}>
+                    <div
+                        className={'content'}
+                    >
+                        {_.truncate(data.description, {length:250, separator:/\n?\t/})}
+                    </div>
+                    <div
+                        className={'location'}
+                    >
+                        {
+                            //feather icon here
+                            data.location
+                        }
+                    </div>
+                </div>
             </div>
         )
     }

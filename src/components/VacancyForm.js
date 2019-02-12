@@ -17,6 +17,7 @@ class VacancyForm extends Component {
     render(props) {
         var { onSubmit, className } = this.props;
         return (
+            // Formik is basically wonderful
             <Formik
                 initialValues={INITIAL_VALUES}
                 validate={
@@ -44,7 +45,6 @@ class VacancyForm extends Component {
                         return errors;
                     }
                 }
-
                 onSubmit={(values) => {
                     console.log('onSubmit',values)
                     onSubmit(values);
@@ -95,6 +95,7 @@ class VacancyForm extends Component {
                                     value={values.salary}
                                     onChange={handleChange}
                                     error={errors.salary}
+                                    type={'number'}
                                     required
                                 />
                                 <FormInput
