@@ -84,17 +84,17 @@ class VacancyList extends Component {
                         onChange={this.onChangeSortBy}
                     />
                 </div>
-                {currentPage.map((item, index) => {
+                {currentPage ? currentPage.map((item, index) => {
                     return (
                         <VacancyItem
                             data={item}
                             key={index}
                         />
                     )
-                })}
+                }):<h2>No Items Found</h2>}
                 <Pagination
-                    currentPageIndex={currentPageIndex}
-                    totalPageCount={Math.ceil(items.length / pageSize)}
+                    currentPageIndex={currentPageIndex?currentPageIndex:0}
+                    totalPageCount={currentPage?pages.length:1}
                     onNext={this.paginateNext}
                     onPrev={this.paginatePrev}
                     onItemSelect={this.paginateTo}
