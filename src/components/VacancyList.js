@@ -1,43 +1,90 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames'
-// import './css/VacancyList.module.sass';
+import Styles from './css/VacancyList.module.sass';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import VacancyItem from './VacancyItem';
 import SearchInput from './SearchInput';
 import SearchFilter from './SearchFilter';
 import Pagination from './Pagination';
-
+import Fuse from 'fuse.js'
+const SEARCH_OPTIONS = {
+    shouldSort: true,
+    tokenize: true,
+    //show all items ordered by relevance, or false to filter items
+    findAllMatches: false,
+    threshold: 0.3,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [ //item keys to search in
+        "title",
+        // "location"
+    ]
+};
 class VacancyList extends Component {
     state = {
         sortBy: 'lastUpdated',
-        value: ''
+        searchValue: '',
+        currentPageIndex: 0
     }
-    onChangeVal = (value) =>{
+    onChangeSearch = (searchValue) => {
         this.setState({
-            value
+            searchValue
         })
     }
-    onChangeSortBy = (sortBy) =>{
+    onChangeSortBy = (sortBy) => {
         this.setState({
             sortBy
         })
     }
+    paginateNext = () => {
+        let { currentPageIndex } = this.state
+        this.setState({
+            currentPageIndex: ++currentPageIndex
+        })
+    }
+    paginatePrev = () => {
+        let { currentPageIndex } = this.state
+        this.setState({
+            currentPageIndex: --currentPageIndex
+        })
+    }
+    paginateTo = (index) => {
+        console.log('index', index + 1)
+        this.setState({
+            currentPageIndex: index
+        })
+    }
     render(props) {
         let { items, className } = this.props;
-        const { sortBy, value } = this.state;
-        items = _.sortBy(items, sortBy)
+        const { sortBy, searchValue, currentPageIndex } = this.state;
+        // change item sort
+        items = _.sortBy(items, sortBy);
+        // filter items by search
+        let fuse = new Fuse(items, SEARCH_OPTIONS)
+        items = searchValue.length ? fuse.search(searchValue) : items;
+        // splitting item into pages
+        const pageSize = 2;
+        let pages = _.chunk(items, pageSize);
+        let currentPage = pages[currentPageIndex];
+
         return (
-            <div className={ClassNames('container', className)}>
-                <SearchInput
-                    value={value}
-                    onChange={this.onChangeVal}
-                />
-               <SearchFilter
-                    value={sortBy}
-                    onChange={this.onChangeSortBy}
-               />
-                {items.map((item, index) => {
+            <div className={ClassNames(Styles.container, className)}>
+                <div
+                    className={Styles.searchBox}
+                >
+                    <SearchInput
+                        value={searchValue}
+                        onChange={this.onChangeSearch}
+                    />
+                    <SearchFilter
+                        value={sortBy}
+                        onChange={this.onChangeSortBy}
+                    />
+                </div>
+                {currentPage.map((item, index) => {
                     return (
                         <VacancyItem
                             data={item}
@@ -46,8 +93,11 @@ class VacancyList extends Component {
                     )
                 })}
                 <Pagination
-                    currentPageIndex={0}
-                    totalPageCount={items.length}
+                    currentPageIndex={currentPageIndex}
+                    totalPageCount={Math.ceil(items.length / pageSize)}
+                    onNext={this.paginateNext}
+                    onPrev={this.paginatePrev}
+                    onItemSelect={this.paginateTo}
                 />
             </div>
         )

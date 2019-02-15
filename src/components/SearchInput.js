@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames'
-// import './css/SearchInput.module.sass';
 import PropTypes from 'prop-types';
 // import _ from 'lodash';
 
@@ -17,7 +16,7 @@ class SearchInput extends Component {
         } = this.props;
         return (
             <input
-                className={ClassNames('container', className)}
+                className={ClassNames(className)}
                 value={value}
                 onChange={this.onChange}
             />

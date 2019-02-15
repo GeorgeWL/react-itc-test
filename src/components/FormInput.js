@@ -20,11 +20,11 @@ class FormInput extends Component {
 
 
         return (
-            <div className={ClassNames('container', className)}>
                 <LabelWrapper
                     label={label}
                     error={error}
                     required={required}
+                    className={className}
                 >
                     {textarea === true ?
                         <TextAreaInput
@@ -44,7 +44,6 @@ class FormInput extends Component {
                         />
                     }
                 </LabelWrapper>
-            </div>
         )
     }
 }
@@ -75,6 +74,7 @@ const TextAreaInput = (props) => {
             value={value}
             placeholder={placeholder}
             required={required}
+            rows={10}
             onChange={onChange}
         />
     )
@@ -106,13 +106,16 @@ const LabelWrapper = (props) => {
         children,
         label,
         error,
+        className,
         required
     } = props;
     return (
-        <div>
+        <div
+            className={className}    
+        >
             <strong>{label}{required && '*'}</strong>
             {children}
-            <small style={{ color: 'red' }}>{error ? error : null}</small>
+            {error&&<small style={{ color: 'red' }}>{error ? error : null}</small>}
         </div>
     )
 }

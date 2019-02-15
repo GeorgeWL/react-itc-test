@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames'
-// import './css/Pagination.module.sass';
+import Styles from './css/Pagination.module.sass';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -10,21 +10,45 @@ class Pagination extends Component {
         var {
             currentPageIndex,
             totalPageCount,
+            onNext,
+            onPrev,
+            enableNext,
+            enablePrev,
+            onItemSelect,
             className
         } = this.props;
+        enableNext = enableNext || currentPageIndex < totalPageCount;
+        enablePrev = enablePrev || currentPageIndex > 0;
         return (
-            <div className={ClassNames('container', className)}>
-                {
-                    _.times(totalPageCount, index=> {
-                        return (
-                            <PaginationItem
-                                active={index === currentPageIndex ? true : false}
-                                index={index}
-                                key={index}
-                            />
-                        )
-                    })
-                }
+            <div className={ClassNames(Styles.container, className)}>
+                <div
+                    className={Styles.content}
+                >
+                    <div
+                        onClick={onPrev}
+                        className={ClassNames(Styles.btn, !enablePrev ? Styles.disabled : null)}
+                    >
+                        &lt;
+                    </div>
+                    {
+                        _.times(totalPageCount, index => {
+                            return (
+                                <PaginationItem
+                                    active={index === currentPageIndex ? true : false}
+                                    index={index}
+                                    key={index}
+                                    onClick={()=>onItemSelect(index)}
+                                />
+                            )
+                        })
+                    }
+                    <div
+                        onClick={onNext}
+                        className={ClassNames(Styles.btn, !enableNext ? Styles.disabled : null)}
+                    >
+                        &gt;
+                    </div>
+                </div>
             </div>
         )
     }
@@ -32,6 +56,10 @@ class Pagination extends Component {
 Pagination.propTypes = {
     currentPageIndex: PropTypes.number.isRequired,
     totalPageCount: PropTypes.number.isRequired,
+    onNext: PropTypes.func.isRequired,
+    onPrev: PropTypes.func.isRequired,
+    enableNext: PropTypes.bool,
+    enablePrev: PropTypes.bool,
     className: PropTypes.string
 }
 
@@ -41,12 +69,13 @@ Pagination.defaultProps = {
 
 
 const PaginationItem = (props) => {
-    const { active, index } = props
+    const { active, index, onClick } = props
     return (
         <div
-            className={ClassNames('item', active?'active':null)}
+            className={ClassNames(Styles.item, active ? Styles.current : null)}
+            onClick={onClick}
         >
-            {index+1}
+            {index + 1}
         </div>
     )
 }

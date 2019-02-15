@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames'
 // import _ from 'lodash';
-// import './css/form.sass';
+import Styles from './css/VacancyForm.module.sass';
 import PropTypes from 'prop-types';
 import FormInput from './FormInput';
 import { Formik } from 'formik';
@@ -46,7 +46,7 @@ class VacancyForm extends Component {
                     }
                 }
                 onSubmit={(values) => {
-                    console.log('onSubmit',values)
+                    console.log('onSubmit', values)
                     onSubmit(values);
                 }}
             >
@@ -60,7 +60,7 @@ class VacancyForm extends Component {
                     ) => (
                             <form
                                 onSubmit={handleSubmit}
-                                className={ClassNames('form-container', className)}
+                                className={ClassNames(Styles.container, className)}
                             >
                                 <FormInput
                                     id={'title'}
@@ -69,6 +69,7 @@ class VacancyForm extends Component {
                                     value={values.title}
                                     onChange={handleChange}
                                     error={errors.title}
+                                    className={Styles.item}
                                     required
                                 />
                                 <FormInput
@@ -78,6 +79,7 @@ class VacancyForm extends Component {
                                     value={values.location}
                                     onChange={handleChange}
                                     error={errors.location}
+                                    className={Styles.item}
                                     required
                                 />
                                 <FormInput
@@ -87,6 +89,7 @@ class VacancyForm extends Component {
                                     value={values.department}
                                     onChange={handleChange}
                                     error={errors.department}
+                                    className={Styles.item}
                                 />
                                 <FormInput
                                     id={'salary'}
@@ -96,6 +99,7 @@ class VacancyForm extends Component {
                                     onChange={handleChange}
                                     error={errors.salary}
                                     type={'number'}
+                                    className={Styles.item}
                                     required
                                 />
                                 <FormInput
@@ -105,12 +109,14 @@ class VacancyForm extends Component {
                                     value={values.description}
                                     onChange={handleChange}
                                     error={errors.description}
+                                    className={ClassNames(Styles.item,Styles.isWide)}
                                     required
                                     textarea
                                 />
                                 <button
                                     type="submit"
                                     disabled={errors.length > 0 ? true : false}
+                                    className={ClassNames(Styles.btn, errors.length > 0 ? 'disabled' : null)}
                                 >
                                     Submit
                                 </button>

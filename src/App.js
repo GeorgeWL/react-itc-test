@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './App.sass';
-import VacancyForm from './components/VacancyForm';
 import TEST_DATA from './data/Test';
-import _ from 'lodash';
+import VacancyForm from './components/VacancyForm';
 import VacancyList from './components/VacancyList';
 
 class App extends Component {
@@ -39,6 +38,8 @@ class App extends Component {
             items={items}
           />
         </main>
+        <footer>
+        </footer>
       </div>
     );
   }

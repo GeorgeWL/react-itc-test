@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames'
-// import './css/VacancyItem.module.sass';
+import Styles from './css/VacancyItem.module.sass';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
@@ -13,26 +13,32 @@ class VacancyItem extends Component {
             className
         } = this.props;
         return (
-            <div className={ClassNames('container', className)}>
-                <h1>
+            <div className={ClassNames(Styles.container, className)}>
+                <h2
+                >
                     {data.title}
-                </h1>
+                </h2>
                 <small>
                     {moment(data.lastUpdated).format('MMM Do YY')}
                 </small>
-                <div className={'main'}>
+                <div className={Styles.main}>
                     <div
-                        className={'content'}
+                        className={Styles.content}
                     >
-                        {_.truncate(data.description, {length:250, separator:/\n?\t/})}
+                        {_.truncate(data.description, { length: 250, separator: /\n?\t/ })}
                     </div>
-                    <div
-                        className={'location'}
-                    >
+                </div>
+                <div
+                    className={Styles.footer}
+                >
+                    <div>
                         {
                             //feather icon here
                             data.location
                         }
+                    </div>
+                    <div>
+                        {data.salary} Annual Salary
                     </div>
                 </div>
             </div>
