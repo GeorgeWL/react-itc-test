@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import ClassNames from 'classnames'
-// import _ from 'lodash';
-// import './css/form.sass';
 import PropTypes from 'prop-types'
 class FormInput extends Component {
     render(props) {
@@ -18,32 +15,33 @@ class FormInput extends Component {
             className
         } = this.props;
 
-
         return (
-                <LabelWrapper
-                    label={label}
-                    error={error}
-                    required={required}
-                    className={className}
-                >
-                    {textarea === true ?
-                        <TextAreaInput
-                            name={id}
-                            value={value}
-                            placeholder={placeholder}
-                            required={required}
-                            onChange={onChange}
-                        /> :
-                        <BasicInput
-                            name={id}
-                            value={value}
-                            type={type}
-                            placeholder={placeholder}
-                            required={required}
-                            onChange={onChange}
-                        />
-                    }
-                </LabelWrapper>
+            <LabelWrapper
+                // simple wrapper
+                label={label}
+                error={error}
+                required={required}
+                className={className}
+            >
+                {textarea === true ?
+                    // change the input type if textarea prop is true
+                    <TextAreaInput
+                        name={id}
+                        value={value}
+                        placeholder={placeholder}
+                        required={required}
+                        onChange={onChange}
+                    /> :
+                    <BasicInput
+                        name={id}
+                        value={value}
+                        type={type}
+                        placeholder={placeholder}
+                        required={required}
+                        onChange={onChange}
+                    />
+                }
+            </LabelWrapper>
         )
     }
 }
@@ -67,15 +65,21 @@ FormInput.defaultProps = {
 
 
 const TextAreaInput = (props) => {
-    const { name, value, placeholder, required, onChange } = props;
+    const {
+        name,
+        value,
+        placeholder,
+        required,
+        onChange
+    } = props;
     return (
         <textarea
-            name={name}
+            name={name} //formik expects each field to have unique name prop
             value={value}
             placeholder={placeholder}
             required={required}
             rows={10}
-            onChange={onChange}
+            onChange={onChange} //handling onChange by passing to formik
         />
     )
 }
@@ -90,11 +94,11 @@ const BasicInput = (props) => {
         onChange } = props;
     return (
         <input
-            name={name}
+            name={name} //formik expects each field to have unique name prop
             value={value}
             placeholder={placeholder}
             required={required}
-            onChange={onChange}
+            onChange={onChange} //handling onChange by passing to formik
             min={14000}
             type={type != null ? type : 'string'}
         />
@@ -111,11 +115,13 @@ const LabelWrapper = (props) => {
     } = props;
     return (
         <div
-            className={className}    
+            className={className}
         >
             <strong>{label}{required && '*'}</strong>
             {children}
-            {error&&<small style={{ color: 'red' }}>{error ? error : null}</small>}
+            {error && <small style={{ color: 'red' }}>{error ? error : null}</small>
+                // show errors under each input
+            }
         </div>
     )
 }

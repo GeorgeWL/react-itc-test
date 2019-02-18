@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import VacancyItem from './VacancyItem';
 import SearchInput from './SearchInput';
-import SearchFilter from './SearchFilter';
+import SearchSort from './SearchSort';
 import Pagination from './Pagination';
 import Fuse from 'fuse.js'
 const SEARCH_OPTIONS = {
@@ -69,7 +69,6 @@ class VacancyList extends Component {
         const pageSize = 2;
         let pages = _.chunk(items, pageSize);
         let currentPage = pages[currentPageIndex];
-
         return (
             <div className={ClassNames(Styles.container, className)}>
                 <div
@@ -79,7 +78,7 @@ class VacancyList extends Component {
                         value={searchValue}
                         onChange={this.onChangeSearch}
                     />
-                    <SearchFilter
+                    <SearchSort
                         value={sortBy}
                         onChange={this.onChangeSortBy}
                     />
@@ -91,10 +90,10 @@ class VacancyList extends Component {
                             key={index}
                         />
                     )
-                }):<h2>No Items Found</h2>}
+                }) : <h2>No Items Found</h2>}
                 <Pagination
-                    currentPageIndex={currentPageIndex?currentPageIndex:0}
-                    totalPageCount={currentPage?pages.length:1}
+                    currentPageIndex={currentPageIndex ? currentPageIndex : 0}
+                    totalPageCount={currentPage ? pages.length : 1}
                     onNext={this.paginateNext}
                     onPrev={this.paginatePrev}
                     onItemSelect={this.paginateTo}

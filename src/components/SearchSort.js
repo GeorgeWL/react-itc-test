@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames'
-// import './css/SearchFilter.module.sass';
+// import './css/SearchSort.module.sass';
 import PropTypes from 'prop-types';
 // import _ from 'lodash';
 
@@ -19,7 +19,7 @@ const FILTER_OPTIONS = [
     }
 ]
 
-class SearchFilter extends Component {
+class SearchSort extends Component {
 
     onChange = (evt) => {
         let value = evt.target.value
@@ -52,13 +52,13 @@ class SearchFilter extends Component {
         )
     }
 }
-SearchFilter.propTypes = {
+SearchSort.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string
 }
 
-SearchFilter.defaultProps = {
+SearchSort.defaultProps = {
     /*onClick : () => console.warn('onClick has not been implemented')*/
 }
-export default SearchFilter
+export default SearchSort

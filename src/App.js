@@ -47,9 +47,11 @@ class App extends Component {
             To get a feel what it's like to work or ITC, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
           <VacancyForm
+            // main form
             onSubmit={this.onSubmit}
           />
           <VacancyList
+            // list of items with search and sort
             items={items}
           />
         </main>

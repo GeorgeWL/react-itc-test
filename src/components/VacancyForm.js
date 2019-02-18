@@ -17,11 +17,12 @@ class VacancyForm extends Component {
     render(props) {
         var { onSubmit, className } = this.props;
         return (
-            // Formik is basically wonderful
+            // Formik is basically wonderful, handles state witin it's component, all-in-one, then passes out the values on submit
             <Formik
                 initialValues={INITIAL_VALUES}
                 validate={
                     values => {
+                        // very simple value exists check as error checking
                         let errors = {}
                         if (!values.title) {
                             errors.title = 'Job Title Required'
@@ -47,17 +48,18 @@ class VacancyForm extends Component {
                 }
                 onSubmit={(values) => {
                     console.log('onSubmit', values)
+                    // pass submitted values up to parent
                     onSubmit(values);
                 }}
             >
                 {
-                    (
-                        {
-                            values,
-                            errors,
-                            handleChange,
-                            handleSubmit }
-                    ) => (
+                    ({
+                        // pass values down to form as is
+                        values,
+                        errors,
+                        handleChange,
+                        handleSubmit
+                    }) => (
                             <form
                                 onSubmit={handleSubmit}
                                 className={ClassNames(Styles.container, className)}
@@ -109,7 +111,7 @@ class VacancyForm extends Component {
                                     value={values.description}
                                     onChange={handleChange}
                                     error={errors.description}
-                                    className={ClassNames(Styles.item,Styles.isWide)}
+                                    className={ClassNames(Styles.item, Styles.isWide)}
                                     required
                                     textarea
                                 />

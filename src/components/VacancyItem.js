@@ -39,7 +39,7 @@ class VacancyItem extends Component {
                     <div
                         className={Styles.salary}
                     >
-                        {data.salary} Annual Salary
+                        &pound;{data.salary.toLocaleString()} Annual Salary
                     </div>
                 </div>
                 <div className={Styles.subFooter}>
