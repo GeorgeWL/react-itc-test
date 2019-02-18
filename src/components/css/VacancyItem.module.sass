@@ -1,13 +1,18 @@
 .container
     display: grid
     grid-template-columns: 1fr 1fr
-    grid-template-rows:  1fr 1fr 1fr
+    grid-template-rows:  1fr 1fr .5fr .5fr
     justify-content: center
     background-color: white
     border-bottom: 2px solid #41a0db
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     small
-        margin: 16px
+        margin: 26px
+        justify-self: right
+        color: #AFAFAF
+    h2
+        margin: 26px
+        justify-self: left
     .main
         grid-column: span 2
         margin: 0 25px        
@@ -16,3 +21,20 @@
         justify-self: left
         display: flex
         flex-direction: column
+        .location
+            display: flex
+            flex-direction: row
+            justify-content: center
+            >*
+                margin: 0 10px
+    .subFooter
+        grid-column: span 2
+        justify-self: right
+        grid-gap: 0
+        margin: 0 26px
+        cursor: pointer
+        >*
+            margin: 0 10px
+        .more
+            color: #41A0DB
+            width: 20px

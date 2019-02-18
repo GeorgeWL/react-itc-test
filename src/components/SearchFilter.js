@@ -11,11 +11,11 @@ const FILTER_OPTIONS = [
     },
     {
         value: 'location',
-        label:'Location'
+        label: 'Location'
     },
     {
-        value:'title',
-        label:'Job Title'
+        value: 'title',
+        label: 'Job Title'
     }
 ]
 
@@ -23,7 +23,7 @@ class SearchFilter extends Component {
 
     onChange = (evt) => {
         let value = evt.target.value
-        console.log('value',value)
+        console.log('value', value)
         this.props.onChange(value)
     }
     render(props) {
@@ -36,6 +36,7 @@ class SearchFilter extends Component {
                 className={ClassNames('container', className)}
                 value={value}
                 onChange={this.onChange}
+                required
             >
                 {FILTER_OPTIONS.map((item, index) => {
                     return (
@@ -52,7 +53,7 @@ class SearchFilter extends Component {
     }
 }
 SearchFilter.propTypes = {
-    value:PropTypes.string,
+    value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string
 }

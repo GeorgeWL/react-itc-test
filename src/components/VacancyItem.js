@@ -4,7 +4,8 @@ import Styles from './css/VacancyItem.module.sass';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons'
 class VacancyItem extends Component {
 
     render(props) {
@@ -31,15 +32,22 @@ class VacancyItem extends Component {
                 <div
                     className={Styles.footer}
                 >
-                    <div>
-                        {
-                            //feather icon here
-                            data.location
-                        }
+                    <div className={Styles.location}>
+                        <FontAwesomeIcon icon={faMapMarkerAlt} />
+                        {data.location}
                     </div>
-                    <div>
+                    <div
+                        className={Styles.salary}
+                    >
                         {data.salary} Annual Salary
                     </div>
+                </div>
+                <div className={Styles.subFooter}>
+                    More Info
+                    <FontAwesomeIcon
+                        icon={faLongArrowAltRight}
+                        className={Styles.more}
+                    />
                 </div>
             </div>
         )

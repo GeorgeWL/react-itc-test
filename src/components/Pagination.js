@@ -3,7 +3,8 @@ import ClassNames from 'classnames'
 import Styles from './css/Pagination.module.sass';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons'
 class Pagination extends Component {
 
     render(props) {
@@ -28,7 +29,7 @@ class Pagination extends Component {
                         onClick={onPrev}
                         className={ClassNames(Styles.btn, !enablePrev ? Styles.disabled : null)}
                     >
-                        &lt;
+                        <FontAwesomeIcon icon={faChevronLeft}/>
                     </div>
                     {
                         _.times(totalPageCount, index => {
@@ -46,7 +47,7 @@ class Pagination extends Component {
                         onClick={onNext}
                         className={ClassNames(Styles.btn, !enableNext ? Styles.disabled : null)}
                     >
-                        &gt;
+                        <FontAwesomeIcon icon={faChevronRight}/>
                     </div>
                 </div>
             </div>
